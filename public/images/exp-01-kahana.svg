@@ -1,0 +1,31 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#ffffff"/>
+  <rect x="150" y="108" width="100" height="34" rx="2" fill="#f0f0f0" stroke="#999" stroke-width="0.5"/>
+  <text x="200" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#333" letter-spacing="0.05em">GRAPHQL</text>
+  <text x="200" y="135" text-anchor="middle" font-family="monospace" font-size="8" fill="#333" letter-spacing="0.05em">GATEWAY</text>
+  <rect x="28" y="55" width="80" height="26" rx="2" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="72" text-anchor="middle" font-family="monospace" font-size="8" fill="#666">REACT CLIENT</text>
+  <rect x="28" y="117" width="80" height="26" rx="2" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="68" y="134" text-anchor="middle" font-family="monospace" font-size="8" fill="#666">VOICE SEARCH</text>
+  <rect x="28" y="179" width="80" height="26" rx="2" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="68" y="196" text-anchor="middle" font-family="monospace" font-size="8" fill="#999">MOBILE UI</text>
+  <line x1="108" y1="68" x2="150" y2="118" stroke="#ccc" stroke-width="0.5"/>
+  <line x1="108" y1="130" x2="150" y2="130" stroke="#ccc" stroke-width="0.5"/>
+  <line x1="108" y1="192" x2="150" y2="142" stroke="#ccc" stroke-width="0.5"/>
+  <rect x="292" y="40" width="82" height="26" rx="2" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="333" y="57" text-anchor="middle" font-family="monospace" font-size="8" fill="#666">AUTH SVC</text>
+  <rect x="292" y="78" width="82" height="26" rx="2" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="333" y="95" text-anchor="middle" font-family="monospace" font-size="8" fill="#666">SEARCH SVC</text>
+  <rect x="292" y="116" width="82" height="26" rx="2" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="333" y="133" text-anchor="middle" font-family="monospace" font-size="8" fill="#666">RECOMMEND</text>
+  <rect x="292" y="154" width="82" height="26" rx="2" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="333" y="171" text-anchor="middle" font-family="monospace" font-size="8" fill="#999">REDIS CACHE</text>
+  <rect x="292" y="192" width="82" height="26" rx="2" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="333" y="209" text-anchor="middle" font-family="monospace" font-size="8" fill="#999">RABBITMQ</text>
+  <line x1="250" y1="118" x2="292" y2="53" stroke="#ccc" stroke-width="0.5"/>
+  <line x1="250" y1="122" x2="292" y2="91" stroke="#ccc" stroke-width="0.5"/>
+  <line x1="250" y1="125" x2="292" y2="129" stroke="#bbb" stroke-width="0.5"/>
+  <line x1="250" y1="132" x2="292" y2="167" stroke="#ccc" stroke-width="0.5"/>
+  <line x1="250" y1="138" x2="292" y2="205" stroke="#ddd" stroke-width="0.5"/>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#bbb" letter-spacing="0.08em">KAHANA · MICROSERVICES</text>
+</svg>

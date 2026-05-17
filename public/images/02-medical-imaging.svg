@@ -1,0 +1,26 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#0a0a0a"/>
+  <!-- X-ray chest outline -->
+  <ellipse cx="200" cy="120" rx="90" ry="100" fill="none" stroke="#2a2a2a" stroke-width="0.5"/>
+  <!-- Rib lines -->
+  <path d="M130 70 Q160 80 200 78 Q240 80 270 70" fill="none" stroke="#222" stroke-width="0.5"/>
+  <path d="M120 90 Q155 102 200 100 Q245 102 280 90" fill="none" stroke="#222" stroke-width="0.5"/>
+  <path d="M115 112 Q152 124 200 122 Q248 124 285 112" fill="none" stroke="#222" stroke-width="0.5"/>
+  <path d="M115 134 Q152 146 200 144 Q248 146 285 134" fill="none" stroke="#222" stroke-width="0.5"/>
+  <path d="M118 156 Q154 166 200 164 Q246 166 282 156" fill="none" stroke="#1e1e1e" stroke-width="0.5"/>
+  <!-- Spine -->
+  <line x1="200" y1="30" x2="200" y2="215" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- Grad-CAM heatmap overlay - lung area -->
+  <ellipse cx="160" cy="120" rx="38" ry="55" fill="#ffffff" opacity="0.04"/>
+  <ellipse cx="160" cy="115" rx="22" ry="30" fill="#ffffff" opacity="0.06"/>
+  <ellipse cx="158" cy="110" rx="12" ry="16" fill="#ffffff" opacity="0.12"/>
+  <ellipse cx="240" cy="120" rx="38" ry="55" fill="#ffffff" opacity="0.03"/>
+  <!-- Attention box -->
+  <rect x="138" y="88" width="44" height="46" fill="none" stroke="#fff" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.6"/>
+  <!-- Confidence score -->
+  <rect x="290" y="60" width="90" height="40" rx="2" fill="#111" stroke="#2a2a2a" stroke-width="0.5"/>
+  <text x="335" y="76" text-anchor="middle" font-family="monospace" font-size="8" fill="#555">PNEUMONIA</text>
+  <text x="335" y="92" text-anchor="middle" font-family="monospace" font-size="13" fill="#fff" font-weight="500">94.2%</text>
+  <line x1="290" y1="111" x2="182" y2="111" stroke="#333" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#333" letter-spacing="0.08em">GRAD-CAM ANALYSIS</text>
+</svg>

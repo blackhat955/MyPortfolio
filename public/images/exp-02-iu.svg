@@ -1,0 +1,34 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#ffffff"/>
+  <circle cx="200" cy="110" r="28" fill="#f0f0f0" stroke="#999" stroke-width="0.5"/>
+  <text x="200" y="105" text-anchor="middle" font-family="monospace" font-size="7" fill="#333">HEAD</text>
+  <text x="200" y="116" text-anchor="middle" font-family="monospace" font-size="7" fill="#333">INSTRUCTOR</text>
+  <text x="200" y="127" text-anchor="middle" font-family="monospace" font-size="7" fill="#888">200+ students</text>
+  <circle cx="80" cy="55" r="18" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="80" y="52" text-anchor="middle" font-family="monospace" font-size="7" fill="#666">TEAM</text>
+  <text x="80" y="63" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">01</text>
+  <circle cx="200" cy="35" r="18" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="200" y="32" text-anchor="middle" font-family="monospace" font-size="7" fill="#666">TEAM</text>
+  <text x="200" y="43" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">02</text>
+  <circle cx="320" cy="55" r="18" fill="#fafafa" stroke="#ccc" stroke-width="0.5"/>
+  <text x="320" y="52" text-anchor="middle" font-family="monospace" font-size="7" fill="#666">TEAM</text>
+  <text x="320" y="63" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">03</text>
+  <circle cx="80" cy="175" r="18" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="80" y="172" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">TEAM</text>
+  <text x="80" y="183" text-anchor="middle" font-family="monospace" font-size="7" fill="#bbb">04</text>
+  <circle cx="200" cy="195" r="18" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="200" y="192" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">TEAM</text>
+  <text x="200" y="203" text-anchor="middle" font-family="monospace" font-size="7" fill="#bbb">05</text>
+  <circle cx="320" cy="175" r="18" fill="#fafafa" stroke="#ddd" stroke-width="0.5"/>
+  <text x="320" y="172" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">TEAM</text>
+  <text x="320" y="183" text-anchor="middle" font-family="monospace" font-size="7" fill="#bbb">06</text>
+  <line x1="96" y1="66" x2="175" y2="95" stroke="#ddd" stroke-width="0.5"/>
+  <line x1="200" y1="53" x2="200" y2="82" stroke="#ddd" stroke-width="0.5"/>
+  <line x1="304" y1="66" x2="225" y2="95" stroke="#ddd" stroke-width="0.5"/>
+  <line x1="96" y1="164" x2="175" y2="130" stroke="#e5e5e5" stroke-width="0.5"/>
+  <line x1="200" y1="177" x2="200" y2="138" stroke="#e5e5e5" stroke-width="0.5"/>
+  <line x1="304" y1="164" x2="225" y2="130" stroke="#e5e5e5" stroke-width="0.5"/>
+  <rect x="120" y="218" width="160" height="16" rx="2" fill="#f5f5f5" stroke="#eee" stroke-width="0.5"/>
+  <text x="200" y="230" text-anchor="middle" font-family="monospace" font-size="7" fill="#999">agile · sprint reviews · PR reviews</text>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#bbb" letter-spacing="0.08em">IU · TEACHING</text>
+</svg>

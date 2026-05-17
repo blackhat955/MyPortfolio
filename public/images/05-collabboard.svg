@@ -1,0 +1,38 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#0a0a0a"/>
+  <!-- Three columns -->
+  <!-- TODO -->
+  <rect x="25" y="30" width="105" height="190" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="0.5"/>
+  <text x="77" y="50" text-anchor="middle" font-family="monospace" font-size="8" fill="#444" letter-spacing="0.1em">TODO</text>
+  <rect x="33" y="58" width="89" height="28" rx="2" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5"/>
+  <text x="42" y="70" font-family="monospace" font-size="7" fill="#666">Auth flow</text>
+  <text x="42" y="81" font-family="monospace" font-size="6" fill="#3a3a3a">@durgesh</text>
+  <rect x="33" y="92" width="89" height="28" rx="2" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5"/>
+  <text x="42" y="104" font-family="monospace" font-size="7" fill="#666">DB schema</text>
+  <text x="42" y="115" font-family="monospace" font-size="6" fill="#3a3a3a">@team</text>
+  <rect x="33" y="126" width="89" height="28" rx="2" fill="#1a1a1a" stroke="#1e1e1e" stroke-width="0.5"/>
+  <text x="42" y="138" font-family="monospace" font-size="7" fill="#444">UI mockups</text>
+  <text x="42" y="149" font-family="monospace" font-size="6" fill="#2a2a2a">@team</text>
+  <!-- DOING -->
+  <rect x="147" y="30" width="105" height="190" rx="3" fill="#111" stroke="#222" stroke-width="0.5"/>
+  <text x="199" y="50" text-anchor="middle" font-family="monospace" font-size="8" fill="#555" letter-spacing="0.1em">DOING</text>
+  <rect x="155" y="58" width="89" height="28" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="0.5"/>
+  <text x="164" y="70" font-family="monospace" font-size="7" fill="#888">GraphQL subs</text>
+  <text x="164" y="81" font-family="monospace" font-size="6" fill="#444">@durgesh</text>
+  <rect x="155" y="92" width="89" height="28" rx="2" fill="#1e1e1e" stroke="#2a2a2a" stroke-width="0.5"/>
+  <text x="164" y="104" font-family="monospace" font-size="7" fill="#777">Kanban drag</text>
+  <text x="164" y="115" font-family="monospace" font-size="6" fill="#3a3a3a">@team</text>
+  <!-- DONE -->
+  <rect x="269" y="30" width="105" height="190" rx="3" fill="#111" stroke="#1e1e1e" stroke-width="0.5"/>
+  <text x="321" y="50" text-anchor="middle" font-family="monospace" font-size="8" fill="#444" letter-spacing="0.1em">DONE</text>
+  <rect x="277" y="58" width="89" height="28" rx="2" fill="#161616" stroke="#222" stroke-width="0.5"/>
+  <text x="286" y="70" font-family="monospace" font-size="7" fill="#555">Task export</text>
+  <text x="286" y="81" font-family="monospace" font-size="6" fill="#2a2a2a">@durgesh</text>
+  <rect x="277" y="92" width="89" height="28" rx="2" fill="#161616" stroke="#1e1e1e" stroke-width="0.5"/>
+  <text x="286" y="104" font-family="monospace" font-size="7" fill="#444">Labels + tags</text>
+  <text x="286" y="115" font-family="monospace" font-size="6" fill="#2a2a2a">@team</text>
+  <rect x="277" y="126" width="89" height="28" rx="2" fill="#161616" stroke="#1e1e1e" stroke-width="0.5"/>
+  <text x="286" y="138" font-family="monospace" font-size="7" fill="#444">Priority rank</text>
+  <text x="286" y="149" font-family="monospace" font-size="6" fill="#2a2a2a">@durgesh</text>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#333" letter-spacing="0.08em">COLLABBOARD</text>
+</svg>

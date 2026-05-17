@@ -1,0 +1,342 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Geist Pixel';
+  src: url('../node_modules/geist/dist/fonts/geist-pixel/GeistPixel-Line.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 0%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
+    --radius: 0px;
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: #000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@keyframes blur-text {
+  0% {
+    filter: blur(0px);
+  }
+  100% {
+    filter: blur(4px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto !important;
+    min-height: 100vh !important;
+    display: grid !important;
+    grid-template-rows: auto minmax(420px, 58vh) !important;
+    overflow: visible !important;
+  }
+
+  .hero-nav {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 20px !important;
+    background: #000 !important;
+  }
+
+  .hero-nav-links {
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 12px 18px !important;
+    white-space: normal !important;
+  }
+
+  .hero-nav-item {
+    gap: 10px !important;
+  }
+
+  .hero-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 620px !important;
+    order: 1 !important;
+  }
+
+  .hero-content {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    width: auto !important;
+    padding: 48px 20px 36px !important;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(44px, 16vw, 76px) !important;
+    line-height: 0.94 !important;
+  }
+
+  .hero-notes {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+    margin-top: 36px !important;
+  }
+
+  .hero-notes p {
+    max-width: none !important;
+  }
+
+  .hero-actions {
+    margin-top: 28px !important;
+  }
+
+  .hero-ascii {
+    width: 100% !important;
+    min-height: 420px !important;
+    order: 2 !important;
+  }
+
+  .availability-strip {
+    padding: 14px 20px !important;
+  }
+
+  .availability-strip > div {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    white-space: normal !important;
+  }
+
+  .manifesto-section {
+    padding: 48px 20px !important;
+  }
+
+  .identity-section,
+  .impact-section,
+  .education-section {
+    padding: 52px 20px !important;
+  }
+
+  .identity-grid,
+  .impact-header,
+  .education-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .identity-detail-grid,
+  .impact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .impact-card {
+    min-height: auto !important;
+    padding: 22px !important;
+  }
+
+  .education-grid article > div:first-child {
+    display: grid !important;
+  }
+
+  .education-grid article > div:first-child p {
+    white-space: normal !important;
+  }
+
+  .manifesto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .manifesto-media > div {
+    min-height: 220px !important;
+    height: 220px !important;
+  }
+
+  .manifesto-content {
+    padding: 22px !important;
+  }
+
+  .manifesto-content h2 {
+    font-size: clamp(42px, 18vw, 72px) !important;
+  }
+
+  .stack-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .facilities-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .facilities-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid #000;
+  }
+  .facilities-grid > div:last-child {
+    border-bottom: none;
+  }
+
+  .observation-section {
+    height: 100svh !important;
+    padding: 24px 20px !important;
+    gap: 18px !important;
+  }
+
+  .observation-heading {
+    font-size: 13px !important;
+    line-height: 18px !important;
+  }
+
+  .observation-frame {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .observation-frame video {
+    height: 100% !important;
+  }
+
+  .observation-frame > div {
+    font-size: 10px !important;
+    max-width: calc(100% - 24px) !important;
+  }
+
+  .archives-header {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding: 64px 20px 32px !important;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 20px 72px !important;
+    gap: 16px !important;
+  }
+
+  .project-card {
+    min-height: auto !important;
+    grid-template-rows: 210px auto !important;
+    transform: none !important;
+  }
+
+  .project-card > div:last-child {
+    padding: 22px !important;
+  }
+
+  .project-card h3 {
+    font-size: 20px !important;
+    line-height: 26px !important;
+  }
+
+  .project-preview {
+    padding: 92px 20px 40px !important;
+  }
+
+  .project-preview button {
+    top: 20px !important;
+    right: 20px !important;
+  }
+
+  .project-preview-card {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .project-preview-card img {
+    min-height: 180px !important;
+    height: 180px !important;
+  }
+
+  .project-preview-card > div {
+    padding: 20px !important;
+  }
+
+  .project-preview-card > div > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  .site-footer {
+    padding: 56px 20px 28px !important;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer-bottom {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content {
+    padding-top: 36px !important;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(42px, 18vw, 64px) !important;
+  }
+
+  .hero-panel {
+    min-height: 580px !important;
+  }
+
+  .hero-ascii {
+    min-height: 340px !important;
+  }
+
+  .manifesto-content,
+  .project-card > div:last-child {
+    padding: 18px !important;
+  }
+
+  .facilities-grid > div {
+    padding: 32px 20px !important;
+  }
+}

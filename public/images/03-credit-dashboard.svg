@@ -1,0 +1,24 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#0a0a0a"/>
+  <!-- Card 1 (back) -->
+  <rect x="60" y="50" width="200" height="120" rx="6" fill="#111" stroke="#2a2a2a" stroke-width="0.5"/>
+  <!-- Card 2 (front) -->
+  <rect x="80" y="65" width="200" height="120" rx="6" fill="#161616" stroke="#333" stroke-width="0.5"/>
+  <!-- Card chip -->
+  <rect x="100" y="90" width="28" height="22" rx="2" fill="#1e1e1e" stroke="#3a3a3a" stroke-width="0.5"/>
+  <line x1="114" y1="90" x2="114" y2="112" stroke="#2a2a2a" stroke-width="0.5"/>
+  <line x1="100" y1="101" x2="128" y2="101" stroke="#2a2a2a" stroke-width="0.5"/>
+  <!-- Card number -->
+  <text x="100" y="135" font-family="monospace" font-size="9" fill="#444" letter-spacing="0.15em">•••• •••• •••• 4291</text>
+  <!-- Card name -->
+  <text x="100" y="158" font-family="monospace" font-size="8" fill="#333">DURGESH TIWARI</text>
+  <!-- Due badge -->
+  <rect x="230" y="88" width="36" height="16" rx="2" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="0.5"/>
+  <text x="248" y="100" text-anchor="middle" font-family="monospace" font-size="7" fill="#666">DUE 12/3</text>
+  <!-- Payment bar -->
+  <rect x="80" y="198" width="200" height="6" rx="2" fill="#1a1a1a" stroke="#222" stroke-width="0.5"/>
+  <rect x="80" y="198" width="130" height="6" rx="2" fill="#fff" opacity="0.15"/>
+  <text x="80" y="220" font-family="monospace" font-size="8" fill="#444">MIN $45</text>
+  <text x="280" y="220" text-anchor="end" font-family="monospace" font-size="8" fill="#444">TOTAL $840</text>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#333" letter-spacing="0.08em">CREDIT DASHBOARD</text>
+</svg>
