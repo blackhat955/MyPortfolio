@@ -86,17 +86,6 @@ export default function Impact() {
               Signals
             </h2>
           </div>
-          <p
-            style={{
-              fontSize: '14px',
-              lineHeight: '24px',
-              color: 'rgba(255,255,255,0.68)',
-              maxWidth: '620px',
-              margin: 0,
-            }}
-          >
-            {metricsConfig.title} These are the numbers recruiters and hiring managers should see before they scan the resume.
-          </p>
         </div>
 
         <div
