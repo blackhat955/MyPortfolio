@@ -9,20 +9,30 @@ export default function Archives() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const vaultButtonRef = useRef<HTMLButtonElement>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const projects = archivesConfig.items;
   const featuredProjects = projects.slice(0, 3);
 
   const closePreview = useCallback(() => {
+    vaultButtonRef.current?.focus();
     setPreviewOpen(false);
   }, []);
 
   useEffect(() => {
     if (!sectionRef.current || !headerRef.current || !gridRef.current) return;
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const cards = Array.from(gridRef.current.querySelectorAll<HTMLElement>('.project-card'));
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set([headerRef.current, ...cards], { opacity: 1, y: 0, rotateX: 0 });
+        return;
+      }
+
       gsap.fromTo(
         headerRef.current,
         { opacity: 0, y: 32 },
@@ -74,6 +84,55 @@ export default function Archives() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    if (!previewOpen || !dialogRef.current) return;
+
+    const dialog = dialogRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const getFocusable = () =>
+      Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute('aria-disabled'));
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closePreview();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [closePreview, previewOpen]);
+
   if (!archivesConfig.sectionLabel && !archivesConfig.vaultTitle && projects.length === 0) {
     return null;
   }
@@ -119,7 +178,7 @@ export default function Archives() {
           }}
         >
           <div>
-            <h3
+            <p
               style={{
                 fontFamily: "'IBM Plex Mono', monospace",
                 fontSize: '13px',
@@ -132,7 +191,7 @@ export default function Archives() {
               }}
             >
               {archivesConfig.sectionLabel}
-            </h3>
+            </p>
             <h2
               style={{
                 fontFamily: "'Geist Pixel', monospace",
@@ -171,7 +230,10 @@ export default function Archives() {
             </p>
             {archivesConfig.vaultTitle && (
               <button
+                ref={vaultButtonRef}
                 onClick={() => setPreviewOpen(true)}
+                aria-haspopup="dialog"
+                aria-controls="project-vault-dialog"
                 style={{
                   fontFamily: "'IBM Plex Mono', monospace",
                   fontSize: '12px',
@@ -184,18 +246,16 @@ export default function Archives() {
                   padding: '12px 22px',
                   cursor: 'pointer',
                   letterSpacing: '0.08em',
-                  transition: 'background 0.2s, color 0.2s, transform 0.2s',
+                  transition: 'opacity 0.2s, transform 0.2s',
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget;
-                  el.style.background = '#fff';
-                  el.style.color = '#000';
+                  el.style.opacity = '0.72';
                   el.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget;
-                  el.style.background = 'transparent';
-                  el.style.color = '#fff';
+                  el.style.opacity = '1';
                   el.style.transform = 'translateY(0)';
                 }}
               >
@@ -212,7 +272,7 @@ export default function Archives() {
             position: 'relative',
             zIndex: 2,
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
             gap: '1px',
             padding: '0 40px 112px',
           }}
@@ -243,6 +303,8 @@ export default function Archives() {
                 <img
                   src={project.src}
                   alt={project.title}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -291,17 +353,22 @@ export default function Archives() {
                 >
                   {project.title}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: "'IBM Plex Mono', monospace",
-                    fontSize: '13px',
-                    lineHeight: '22px',
-                    color: 'rgba(255,255,255,0.66)',
-                    margin: 0,
-                  }}
-                >
-                  {project.summary}
-                </p>
+                <dl className="project-brief">
+                  {[
+                    ['Problem', project.problem ?? project.summary],
+                    ['Ownership', project.ownership],
+                    ['Architecture', project.architecture],
+                    ['Decision', project.decision],
+                    ['Result', project.result],
+                  ].map(([label, value]) =>
+                    value ? (
+                      <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                      </div>
+                    ) : null
+                  )}
+                </dl>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {project.stack.map((tool) => (
@@ -321,65 +388,30 @@ export default function Archives() {
                   ))}
                 </div>
 
-                <ul
-                  style={{
-                    display: 'grid',
-                    gap: '8px',
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: '4px 0 0',
-                  }}
-                >
-                  {project.metrics.map((metric) => (
-                    <li
-                      key={metric}
-                      style={{
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        fontSize: '12px',
-                        lineHeight: '18px',
-                        color: 'rgba(255,255,255,0.58)',
-                      }}
-                    >
-                      // {metric}
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+                <div className="project-actions">
                   {project.demoUrl && (
                     <a
+                      className="project-link"
                       href={project.demoUrl}
                       target="_blank"
                       rel="noreferrer"
-                      style={{
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        fontSize: '12px',
-                        color: '#fff',
-                        textDecoration: 'none',
-                        textTransform: 'uppercase',
-                        borderBottom: '1px solid rgba(255,255,255,0.72)',
-                        paddingBottom: '3px',
-                      }}
                     >
-                      Open demo →
+                      Live demo ↗
                     </a>
+                  )}
+                  {!project.demoUrl && (
+                    <span className="project-link is-disabled" aria-disabled="true">
+                      Live demo unavailable
+                    </span>
                   )}
                   {project.repoUrl && (
                     <a
+                      className="project-link"
                       href={project.repoUrl}
                       target="_blank"
                       rel="noreferrer"
-                      style={{
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        fontSize: '12px',
-                        color: '#fff',
-                        textDecoration: 'none',
-                        textTransform: 'uppercase',
-                        borderBottom: '1px solid rgba(255,255,255,0.72)',
-                        paddingBottom: '3px',
-                      }}
                     >
-                      View code →
+                      GitHub ↗
                     </a>
                   )}
                 </div>
@@ -390,21 +422,35 @@ export default function Archives() {
       </section>
 
       <div
+        ref={dialogRef}
+        id="project-vault-dialog"
         className="project-preview"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-vault-title"
+        aria-hidden={!previewOpen}
+        tabIndex={-1}
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) closePreview();
+        }}
         style={{
           position: 'fixed',
           inset: 0,
           zIndex: 100,
           opacity: previewOpen ? 1 : 0,
           pointerEvents: previewOpen ? 'auto' : 'none',
+          visibility: previewOpen ? 'visible' : 'hidden',
           background: 'rgba(0,0,0,0.96)',
-          transition: 'opacity 0.28s ease',
+          transition: previewOpen
+            ? 'opacity 0.28s ease, visibility 0s'
+            : 'opacity 0.28s ease, visibility 0s linear 0.28s',
           overflowY: 'auto',
           padding: '104px 40px 56px',
         }}
       >
         {archivesConfig.closeText && (
           <button
+            ref={closeButtonRef}
             onClick={closePreview}
             style={{
               position: 'fixed',
@@ -437,6 +483,10 @@ export default function Archives() {
             gap: '18px',
           }}
         >
+          <div className="project-preview-heading">
+            <p>// PROJECT NETWORK — COMPLETE ARCHIVE</p>
+            <h2 id="project-vault-title">Project Vault</h2>
+          </div>
           {projects.map((project, index) => (
             <article
               className="project-preview-card"
@@ -449,12 +499,15 @@ export default function Archives() {
                 border: '1px solid rgba(255,255,255,0.22)',
                 background: '#050505',
                 transform: previewOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `transform 0.35s ease ${index * 50}ms`,
+                opacity: previewOpen ? 1 : 0,
+                transition: `transform 0.35s ease ${index * 45}ms, opacity 0.3s ease ${index * 45}ms`,
               }}
             >
               <img
                 src={project.src}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: '100%',
                   height: '100%',

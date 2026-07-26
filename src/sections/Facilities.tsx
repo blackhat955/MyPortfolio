@@ -104,7 +104,7 @@ function FacilityColumn({ facility, isLast }: { facility: FacilityItem; isLast: 
           color: '#000',
         }}
       >
-        <h2
+        <h3
           style={{
             fontFamily: "'IBM Plex Mono', monospace",
             fontSize: '20px',
@@ -125,7 +125,7 @@ function FacilityColumn({ facility, isLast }: { facility: FacilityItem; isLast: 
         >
           {facility.name}
           {facility.code ? `, ${facility.code}` : ''}
-        </h2>
+        </h3>
       </Link>
 
       <div style={{ marginTop: '20px' }}>
@@ -230,13 +230,15 @@ function FacilityColumn({ facility, isLast }: { facility: FacilityItem; isLast: 
             paddingBottom: '2px',
             display: 'inline-block',
             marginBottom: '32px',
-            transition: 'border-bottom-width 0.2s',
+            transition: 'opacity 0.2s, transform 0.2s',
           }}
           onMouseEnter={(e) => {
-            (e.target as HTMLElement).style.borderBottomWidth = '2px';
+            (e.currentTarget as HTMLElement).style.opacity = '0.68';
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={(e) => {
-            (e.target as HTMLElement).style.borderBottomWidth = '1px';
+            (e.currentTarget as HTMLElement).style.opacity = '1';
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
           }}
         >
           {facility.ctaText}
@@ -284,7 +286,13 @@ export default function Facilities() {
     if (!sectionRef.current || !gridRef.current) return;
 
     const cols = gridRef.current.children;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set(Array.from(cols), { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.fromTo(
         Array.from(cols),
         { opacity: 0, y: 40 },
@@ -325,7 +333,8 @@ export default function Facilities() {
           padding: '40px 40px 20px',
         }}
       >
-        <h3
+        <h2 className="sr-only">Professional experience</h2>
+        <p
           style={{
             fontFamily: "'IBM Plex Mono', monospace",
             fontSize: '17.5px',
@@ -337,7 +346,7 @@ export default function Facilities() {
           }}
         >
           {facilitiesConfig.sectionLabel}
-        </h3>
+        </p>
       </div>
 
       <div

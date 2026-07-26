@@ -86,17 +86,17 @@ export default function Footer() {
                 borderBottom: '1px solid rgba(255,255,255,0.24)',
                 display: 'grid',
                 gap: '8px',
-                transition: 'background 0.2s, color 0.2s',
+                transition: 'opacity 0.2s, transform 0.2s',
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget;
-                el.style.background = '#fff';
-                el.style.color = '#000';
+                el.style.opacity = '0.72';
+                el.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget;
-                el.style.background = 'transparent';
-                el.style.color = '#fff';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
               }}
             >
               <span

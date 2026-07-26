@@ -1,42 +1,97 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import AsciiCanvas from '../components/AsciiCanvas';
-import { heroConfig, navigationConfig } from '../config';
+import CountUpValue from '../components/CountUpValue';
+import { heroConfig, metricsConfig, navigationConfig } from '../config';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const notes = heroConfig.supportingNotes.slice(0, 3);
-  const hasHeroContent =
-    navigationConfig.brandName ||
-    navigationConfig.links.length > 0 ||
-    heroConfig.eyebrow ||
-    heroConfig.titleLines.length > 0 ||
-    heroConfig.leadText ||
-    notes.length > 0;
+  const [activeHref, setActiveHref] = useState('#hero');
+  const heroMetrics = metricsConfig.items.slice(0, 4);
+
+  const closeMobileMenu = useCallback((restoreFocus = false) => {
+    setMobileMenuOpen(false);
+    if (restoreFocus) {
+      requestAnimationFrame(() => menuButtonRef.current?.focus());
+    }
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set(['.hero-nav-item', '.hero-copy'], { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.fromTo(
         '.hero-nav-item',
         { opacity: 0, y: -12 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06 }
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.045 }
       );
       gsap.fromTo(
         '.hero-copy',
-        { opacity: 0, y: 34 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.1 }
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08, delay: 0.06 }
       );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  if (!hasHeroContent) {
-    return null;
-  }
+  useEffect(() => {
+    const sectionIds = navigationConfig.links
+      .map((link) => link.href)
+      .filter((href) => href.startsWith('#'))
+      .map((href) => href.slice(1));
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActiveHref(`#${visible.target.id}`);
+      },
+      { rootMargin: '-18% 0px -62% 0px', threshold: [0.01, 0.2, 0.5] }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeMobileMenu(true);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) closeMobileMenu();
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    requestAnimationFrame(() => {
+      navRef.current?.querySelector<HTMLAnchorElement>('.hero-nav-links a')?.focus();
+    });
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [closeMobileMenu, mobileMenuOpen]);
 
   return (
     <section
@@ -51,9 +106,10 @@ export default function Hero() {
         display: 'flex',
       }}
     >
-      {/* Navigation */}
       <nav
+        ref={navRef}
         className="hero-nav"
+        aria-label="Primary navigation"
         style={{
           position: 'absolute',
           top: 0,
@@ -65,162 +121,68 @@ export default function Hero() {
           gridTemplateColumns: 'minmax(180px, 40%) minmax(0, 1fr)',
           alignItems: 'center',
           gap: '28px',
-          padding: '22px clamp(20px, 3vw, 48px)',
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.28) 78%, rgba(0,0,0,0) 100%)',
+          padding: '18px clamp(20px, 3vw, 48px)',
+          background: 'rgba(0,0,0,0.92)',
+          borderBottom: '1px solid rgba(255,255,255,0.15)',
           fontFamily: "'IBM Plex Mono', monospace",
           boxSizing: 'border-box',
-          backdropFilter: 'blur(2px)',
         }}
       >
-        <span
-          className="hero-nav-item"
-          style={{
-            fontSize: 'clamp(16px, 1.45vw, 22px)',
-            fontWeight: 400,
-            color: '#fff',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
+        <a
+          className="hero-nav-item hero-brand"
+          href="#hero"
+          aria-label="Durgesh Tiwari, return to top"
         >
           {navigationConfig.brandName}
-        </span>
+        </a>
+
         <button
+          ref={menuButtonRef}
           type="button"
-          className="mobile-menu-toggle"
+          className={`mobile-menu-toggle${mobileMenuOpen ? ' is-open' : ''}`}
           aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-controls="primary-navigation"
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
-          style={{
-            display: 'none',
-            position: 'absolute',
-            top: '14px',
-            right: '20px',
-            width: '44px',
-            height: '44px',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid rgba(255,255,255,0.48)',
-            background: '#000',
-            color: '#fff',
-            fontFamily: "'IBM Plex Mono', monospace",
-            fontSize: '24px',
-            lineHeight: 1,
-            cursor: 'pointer',
-          }}
         >
-          <span aria-hidden="true">{mobileMenuOpen ? '×' : '☰'}</span>
+          <span className="menu-line menu-line-top" aria-hidden="true" />
+          <span className="menu-line menu-line-middle" aria-hidden="true" />
+          <span className="menu-line menu-line-bottom" aria-hidden="true" />
         </button>
+
         <div
           id="primary-navigation"
           className={`hero-nav-links${mobileMenuOpen ? ' is-open' : ''}`}
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            gap: 'clamp(18px, 2.4vw, 44px)',
-            minWidth: 0,
-            whiteSpace: 'nowrap',
-          }}
+          aria-hidden={!mobileMenuOpen ? undefined : false}
         >
-          {navigationConfig.links.map((item, index) => (
-            <div
-              className="hero-nav-item"
-              key={`${item.label}-${item.href}`}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 'clamp(12px, 1.5vw, 28px)',
-              }}
-            >
-              <a
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontSize: 'clamp(10px, 0.82vw, 13px)',
-                  fontWeight: 400,
-                  color: '#fff',
-                  textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  letterSpacing: '0.08em',
-                  borderBottom: '1px solid transparent',
-                  transition: 'border-color 0.2s',
-                  paddingBottom: '2px',
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.borderBottomColor = '#fff';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.borderBottomColor = 'transparent';
-                }}
-              >
-                {item.label}
-              </a>
-              {index < navigationConfig.links.length - 1 && (
-                <span
-                  className="hero-nav-separator"
-                  style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px' }}
+          {navigationConfig.links.map((item, index) => {
+            const isActive = activeHref === item.href;
+            return (
+              <div className="hero-nav-item" key={`${item.label}-${item.href}`}>
+                <a
+                  className={isActive ? 'is-active' : undefined}
+                  href={item.href}
+                  aria-current={isActive ? 'location' : undefined}
+                  onClick={() => closeMobileMenu()}
                 >
-                  ·
-                </span>
-              )}
-            </div>
-          ))}
+                  {item.label}
+                </a>
+                {index < navigationConfig.links.length - 1 && (
+                  <span className="hero-nav-separator" aria-hidden="true">
+                    ·
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
       </nav>
 
-      <div
-        className="hero-panel"
-        style={{
-          position: 'relative',
-          width: '40%',
-          minWidth: '320px',
-          background: '#000',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Hero Title */}
-        <div
-          className="hero-content"
-          style={{
-            position: 'absolute',
-            left: '40px',
-            right: '24px',
-            top: '21vh',
-            zIndex: 10,
-            width: 'calc(100% - 64px)',
-            maxWidth: 'none',
-          }}
-        >
-          <p
-            className="hero-copy"
-            style={{
-              fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: '11px',
-              fontWeight: 400,
-              lineHeight: 1.6,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.42)',
-              margin: '0 0 22px 0',
-            }}
-          >
-            {heroConfig.eyebrow}
-          </p>
-          <h1
-            className="hero-copy"
-            style={{
-              fontFamily: "'Geist Pixel', monospace",
-              fontSize: 'clamp(44px, 5.6vw, 82px)',
-              fontWeight: 400,
-              lineHeight: 0.96,
-              color: '#fff',
-              textTransform: 'uppercase',
-              margin: 0,
-              textWrap: 'balance',
-              letterSpacing: '0.015em',
-            }}
-          >
+      <div className="hero-panel">
+        <div className="hero-content">
+          <p className="hero-copy hero-eyebrow">{heroConfig.eyebrow}</p>
+          <h1 className="hero-copy">
+            <span className="hero-name">Durgesh Tiwari</span>
             {heroConfig.titleLines.map((line, index) => (
               <span key={`${line}-${index}`}>
                 {line}
@@ -229,82 +191,35 @@ export default function Hero() {
             ))}
           </h1>
 
-          <div
-            className="hero-notes"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-              gap: '28px 42px',
-              marginTop: '56px',
-              width: '100%',
-            }}
-          >
-            {[heroConfig.leadText, ...notes].filter((item) => item).map((text) => (
-              <p
-                className="hero-copy"
-                key={text}
-                style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: '12px',
-                  fontWeight: 400,
-                  lineHeight: 1.9,
-                  color: 'rgba(255,255,255,0.56)',
-                  margin: 0,
-                  maxWidth: '34ch',
-                }}
-              >
-                {text}
-              </p>
+          <div className="hero-impact-grid hero-copy" id="impact" aria-label="Selected impact metrics">
+            {heroMetrics.map((metric) => (
+              <article key={metric.label} className="hero-impact-item">
+                <strong>
+                  <CountUpValue metric={metric} />
+                </strong>
+                <span>{metric.label}</span>
+              </article>
             ))}
           </div>
 
-          <div
-            className="hero-actions hero-copy"
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '12px',
-              marginTop: '34px',
-            }}
-          >
-            {[
-              { label: 'Email me', href: 'mailto:durgeshse98@gmail.com' },
-              { label: 'GitHub', href: 'https://github.com/blackhat955' },
-              { label: 'Resume', href: 'mailto:durgeshse98@gmail.com?subject=Resume%20Request%20-%20Durgesh%20Tiwari' },
-            ].map((action) => (
-              <a
-                key={action.label}
-                href={action.href}
-                target={action.href.startsWith('http') ? '_blank' : undefined}
-                rel={action.href.startsWith('http') ? 'noreferrer' : undefined}
-                style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: '11px',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  border: '1px solid rgba(255,255,255,0.48)',
-                  padding: '9px 12px',
-                  background: 'rgba(255,255,255,0.04)',
-                }}
-              >
-                {action.label}
-              </a>
-            ))}
+          <p className="hero-lead hero-copy">{heroConfig.leadText}</p>
+          <p className="hero-proof hero-copy">{heroConfig.supportingNotes[2]}</p>
+
+          <div className="hero-actions hero-copy">
+            <a href="/Durgesh_Tiwari_Resume.pdf" download>
+              Download resume
+            </a>
+            <a href="https://linkedin.com/in/durgesh98" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a href="https://github.com/blackhat955" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
           </div>
         </div>
       </div>
 
-      <div
-        className="hero-ascii"
-        style={{
-          position: 'relative',
-          width: '60%',
-          background: '#000',
-          overflow: 'hidden',
-        }}
-      >
+      <div className="hero-ascii" role="img" aria-label="Procedural ASCII moon visualization">
         <AsciiCanvas />
       </div>
     </section>

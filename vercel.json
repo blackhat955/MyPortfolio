@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/facility/:slug",
+      "destination": "/index.html"
+    }
+  ]
+}

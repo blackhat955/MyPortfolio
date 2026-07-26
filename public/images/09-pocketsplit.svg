@@ -1,0 +1,37 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#050505"/>
+  <rect x="31" y="45" width="82" height="158" rx="10" fill="#0e0e0e" stroke="#888888" stroke-width="0.8"/>
+  <rect x="40" y="61" width="64" height="112" rx="2" fill="#151515" stroke="#555555" stroke-width="0.5"/>
+  <text x="72" y="78" text-anchor="middle" font-family="monospace" font-size="7" fill="#bbbbbb">GROUP BALANCE</text>
+  <text x="72" y="103" text-anchor="middle" font-family="monospace" font-size="15" fill="#eeeeee">$128.40</text>
+  <line x1="50" y1="121" x2="94" y2="121" stroke="#555555" stroke-width="0.5"/>
+  <text x="52" y="139" font-family="monospace" font-size="6" fill="#888888">ALEX</text>
+  <text x="94" y="139" text-anchor="end" font-family="monospace" font-size="6" fill="#aaaaaa">+$42</text>
+  <text x="52" y="154" font-family="monospace" font-size="6" fill="#888888">SAM</text>
+  <text x="94" y="154" text-anchor="end" font-family="monospace" font-size="6" fill="#aaaaaa">-$18</text>
+  <circle cx="72" cy="188" r="5" fill="none" stroke="#777777" stroke-width="0.7"/>
+  <text x="72" y="218" text-anchor="middle" font-family="monospace" font-size="8" fill="#888888">EXPO CLIENT</text>
+
+  <line x1="113" y1="124" x2="155" y2="124" stroke="#666666" stroke-width="0.8"/>
+  <path d="M150 119 L155 124 L150 129" fill="none" stroke="#666666" stroke-width="0.8"/>
+
+  <rect x="155" y="79" width="98" height="90" rx="2" fill="#101010" stroke="#999999" stroke-width="0.7"/>
+  <text x="204" y="99" text-anchor="middle" font-family="monospace" font-size="8" fill="#dddddd">SPRING BOOT</text>
+  <rect x="171" y="111" width="66" height="18" rx="2" fill="#171717" stroke="#666666" stroke-width="0.5"/>
+  <text x="204" y="123" text-anchor="middle" font-family="monospace" font-size="6" fill="#aaaaaa">JWT REST API</text>
+  <rect x="171" y="138" width="66" height="18" rx="2" fill="#171717" stroke="#666666" stroke-width="0.5"/>
+  <text x="204" y="150" text-anchor="middle" font-family="monospace" font-size="6" fill="#aaaaaa">FLYWAY</text>
+  <text x="204" y="187" text-anchor="middle" font-family="monospace" font-size="8" fill="#888888">BACKEND</text>
+
+  <line x1="253" y1="124" x2="295" y2="124" stroke="#666666" stroke-width="0.8"/>
+  <path d="M290 119 L295 124 L290 129" fill="none" stroke="#666666" stroke-width="0.8"/>
+
+  <ellipse cx="337" cy="84" rx="39" ry="13" fill="#121212" stroke="#888888" stroke-width="0.7"/>
+  <path d="M298 84 V157 C298 164 315 170 337 170 C359 170 376 164 376 157 V84" fill="#101010" stroke="#888888" stroke-width="0.7"/>
+  <ellipse cx="337" cy="157" rx="39" ry="13" fill="#101010" stroke="#888888" stroke-width="0.7"/>
+  <text x="337" y="120" text-anchor="middle" font-family="monospace" font-size="8" fill="#bbbbbb">POSTGRESQL</text>
+  <text x="337" y="187" text-anchor="middle" font-family="monospace" font-size="8" fill="#888888">PERSISTENCE</text>
+
+  <text x="200" y="229" text-anchor="middle" font-family="monospace" font-size="8" fill="#777777">SECURESTORE · DOCKER COMPOSE · GHCR</text>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#aaaaaa" letter-spacing="0.08em">POCKETSPLIT · EXPENSE SHARING</text>
+</svg>

@@ -1,0 +1,96 @@
+\documentclass[a4paper,9pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.22in,top=0.22in,bottom=0.22in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\linespread{0.95}
+\setlist[itemize]{noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt,leftmargin=*}
+\setlength{\parindent}{0pt}
+\titlespacing{\section}{0pt}{*0.15}{*0.1}
+\titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule]
+\hypersetup{colorlinks=true,linkcolor=Blue,urlcolor=Blue}
+
+\begin{document}
+\thispagestyle{empty}
+\vspace*{-0.5cm}
+\begin{center}
+  {\fontsize{22}{24}\selectfont\bfseries Durgesh Tiwari}\\
+  \vspace*{0.2em}
+  +1 (812) 778-5427 \textbar\
+  \href{mailto:durgeshse98@gmail.com}{durgeshse98@gmail.com} \textbar\
+  \href{https://linkedin.com/in/durgesh98}{linkedin.com/in/durgesh98} \textbar\
+  \href{https://github.com/blackhat955}{github.com/blackhat955}
+\end{center}
+
+\section*{SUMMARY}
+Full-stack engineer building production systems end-to-end, from \textbf{React} and \textbf{TypeScript} frontends to \textbf{Spring Boot}, \textbf{Flask}, and \textbf{Node} backends on \textbf{AWS}, including the AI layer. Cut page load \textbf{35\%} with a \textbf{GraphQL gateway}, infrastructure cost by \textbf{30\%} with \textbf{Redis caching}, and delivered \textbf{300ms on-device LLM inference} via INT8-quantized \textbf{ONNX Runtime}. \textbf{ICPC Regionalist}.
+
+\section*{EXPERIENCE}
+\textbf{Software Engineer} \textbar\ \textbf{TechMentee, Inc.}, USA \hfill \textbf{June 2026 -- Present}
+\begin{itemize}
+  \item Built a configuration-driven \textbf{Python} pipeline for an E-Pharma platform that automates ingestion, validation, feature engineering, and model training, replacing ad-hoc analysis scripts with reusable, testable components.
+  \item Designed feature engineering and training workflows with lag/rolling features, multi-model evaluation, and joblib artifact persistence, structured for integration with the \textbf{Node.js} backend.
+\end{itemize}
+
+\textbf{Software Engineer} \textbar\ \textbf{Kahana} (AI Agentic Browser Startup), USA \hfill \textbf{June 2025 -- June 2026}
+\begin{itemize}
+  \item \textbf{Achieved a 98\% command success rate} for voice-driven browser actions (open tab, group tabs, search history) built on a \textbf{Python Flask} backend and a \textbf{React with TypeScript} frontend with Tailwind CSS, improving cross-device experience.
+  \item \textbf{Reduced page load time by 35\%} by consolidating separate authentication, recommendation, and search-suggestion calls behind a single \textbf{GraphQL gateway} over \textbf{Flask} microservices, with \textbf{Kafka} events keeping recommendations fresh.
+  \item \textbf{Cut infrastructure costs by 30\%} with a \textbf{Redis cache-aside} layer that repopulates on misses and publishes \textbf{Kafka} events to refresh recommendations, plus \textbf{RabbitMQ} and \textbf{Celery} async jobs.
+  \item \textbf{Improved frontend performance} by restructuring React state from arrays to \textbf{hash maps} for O(1) lookups, adding \textbf{memoization} to cut re-renders, and using code splitting and lazy loading to shrink initial load.
+  \item \textbf{Built a two-tier intent engine} that races an \textbf{on-device MiniLM} matcher against a \textbf{Gemini} path in parallel threads, taking the higher-confidence result and canceling the slower path via an atomic flag to save compute.
+  \item \textbf{Optimized on-device inference to a 300ms round trip} by tuning an \textbf{ONNX Runtime BERT} pipeline for low-resource devices with multithreading and INT8 quantization, matching intents to a \textbf{function registry} of typed browser handlers.
+\end{itemize}
+
+\textbf{Software Engineer} \textbar\ \textbf{Programmers Army}, India \hfill \textbf{May 2022 -- Aug 2023}
+\begin{itemize}
+  \item \textbf{Reduced p95 latency from 450ms to 220ms} under peak load by building Spring Boot REST services with Spring Data JPA and Hibernate for payments, orders, and assessments, while improving testability through dependency injection and slice tests.
+  \item \textbf{Strengthened application security} and reduced authentication-related support tickets by implementing an authentication service with Spring Security, JWT, OAuth2, and role-based access control.
+  \item \textbf{Maintained consistent search performance during traffic spikes} across a \textbf{40K+ daily active user base} by integrating Elasticsearch for full-text search across courses, videos, and PDFs with per-field boosting and fuzzy matching.
+  \item \textbf{Achieved 80\% code coverage} and improved release quality by implementing automated tests with JUnit and Mockito and integrating SonarQube for static analysis.
+\end{itemize}
+
+\section*{PROJECTS}
+\textbf{DocQuery} \href{https://github.com/blackhat955/DocumenRAG}{\textbf{[GitHub]}} \href{https://huggingface.co/spaces/Durgesh98/document-rag-platform}{\textbf{[Live Demo]}} \textbar\ FastAPI, Gradio, ChromaDB, Sentence-Transformers, Groq/Ollama, Docker \hfill \textbf{Jan 2025 -- July 2025}
+\begin{itemize}
+  \item Built a \textbf{RAG pipeline} that extracts PDF text with \textbf{pypdf}, chunks with overlap, embeds locally using \textbf{sentence-transformers (all-MiniLM-L6-v2)}, and stores vectors in persistent \textbf{ChromaDB} with source, page, and chunk metadata.
+  \item \textbf{Eliminated citation hallucination} by grounding every answer in stored vector metadata, so responses cite the exact PDF filename, page, and chunk rather than model-generated references.
+  \item Built a \textbf{ReAct agent} with typed tools for question answering, summarization, and structured report generation behind a pluggable LLM interface supporting \textbf{Groq Llama 3.3 70B} and local \textbf{Ollama llama3.2:3b}.
+  \item Shipped a \textbf{Gradio UI} for PDF upload and Q\&A plus \textbf{FastAPI} endpoints for ingestion, querying, health checks, and agent routing, deployed live on \textbf{Hugging Face Spaces}.
+\end{itemize}
+
+\textbf{High-Performance Search Engine} \textbar\ C++, Node.js (N-API), Express \href{https://github.com/blackhat955/high_performance_texts_search_engine}{\textbf{[GitHub]}} \href{https://high-performance-texts-search-engine.onrender.com/}{\textbf{[Live Demo]}} \hfill \textbf{2025}
+\begin{itemize}
+  \item Implemented a \textbf{Trie}-backed search engine in \textbf{C++} with an \textbf{inverted index} supporting prefix and exact lookups, plus recursive \textbf{Levenshtein} traversal for fuzzy matching within edit distance 2.
+  \item Reduced Trie node memory by 42\% by replacing \texttt{unordered\_map} child storage with a contiguous vector, validated under AddressSanitizer, and exposed the engine as a native N-API addon with real-time latency and throughput monitoring.
+\end{itemize}
+
+\textbf{PocketSplit -- Expense Sharing App} \textbar\ React Native, Expo, Spring Boot, PostgreSQL, Docker \href{https://github.com/blackhat955/PocketSplit}{\textbf{[GitHub]}} \hfill \textbf{Aug 2024 -- Jan 2025}
+\begin{itemize}
+  \item Built a cross-platform expense-sharing app end-to-end: a \textbf{React Native} and \textbf{Expo} client for splitting bills, tracking friend and group balances, and syncing contacts, with sessions stored via \textbf{Expo SecureStore}.
+  \item Built a \textbf{Spring Boot} and \textbf{PostgreSQL} backend with token-authenticated \textbf{REST APIs}, \textbf{Flyway} migrations, and JWT auth, containerized with \textbf{Docker Compose} and published to \textbf{GitHub Container Registry} via \textbf{GitHub Actions}.
+\end{itemize}
+
+\section*{TECHNICAL SKILLS}
+\begin{tabular}{@{}p{3.3cm}p{16cm}@{}}
+\textbf{Languages:} & \textbf{Python}, \textbf{TypeScript}, \textbf{Java}, \textbf{C++}, SQL \\
+\textbf{Frontend:} & \textbf{React}, Next.js, Angular, React Native, Redux, Tailwind CSS, HTML, CSS \\
+\textbf{Backend:} & \textbf{Flask}, \textbf{Spring Boot}, Django, Node.js, GraphQL, REST APIs, Microservices, Kafka, RabbitMQ, Celery \\
+\textbf{Databases:} & PostgreSQL, MySQL, Redis, Elasticsearch, ChromaDB, pgvector \\
+\textbf{Infrastructure:} & AWS (ECS Fargate, Lambda, S3, RDS, CloudFront, API Gateway), Azure, Docker, Kubernetes, GitHub Actions \\
+\textbf{AI/ML:} & RAG, Gemini API, sentence-transformers, MiniLM, embeddings, ONNX Runtime, scikit-learn, Ollama \\
+\textbf{Testing:} & pytest, JUnit, Mockito, Jest, SonarQube \\
+\end{tabular}
+
+\section*{EDUCATION}
+\textbf{Indiana University Bloomington} \textbar\ Bloomington, IN, USA \hfill \textbf{Aug 2023 -- May 2025}\\
+\textit{Master of Science in Data Science}\\
+\textbf{Courses:} Applied Algorithms, Software Engineering, Advanced Database Concepts, Computer Vision
+
+\vspace{0.25em}
+\textbf{University of Mumbai} \textbar\ Mumbai, India \hfill \textbf{Aug 2018 -- May 2022}\\
+\textit{Bachelor of Engineering in Information Technology}\\
+\textbf{Courses:} Object-Oriented Programming, Computer Networks, Operating Systems, Cryptography \& Network Security
+\end{document}
