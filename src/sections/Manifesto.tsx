@@ -9,16 +9,13 @@ export default function Manifesto() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
+  const videoElementRef = useRef<HTMLVideoElement>(null);
   const stackGroups = [
     ['Frontend', 'React', 'Angular', 'TypeScript', 'Tailwind'],
     ['Backend', 'Spring Boot', 'Node.js', 'Django', 'GraphQL'],
     ['Cloud', 'AWS', 'Azure', 'Docker', 'Kubernetes'],
     ['Data', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch'],
   ];
-
-  if (!manifestoConfig.text && !manifestoConfig.videoPath) {
-    return null;
-  }
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current || !videoRef.current) return;
@@ -61,6 +58,50 @@ export default function Manifesto() {
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    const video = videoElementRef.current;
+    if (!video) return;
+
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isInView = false;
+
+    const updatePlayback = () => {
+      if (isInView && !document.hidden && !reducedMotionQuery.matches) {
+        video.play().catch(() => {
+          // Autoplay can be blocked by user or browser preferences.
+        });
+      } else {
+        video.pause();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView = entry.isIntersecting;
+        if (isInView && video.preload === 'none') {
+          video.preload = 'metadata';
+        }
+        updatePlayback();
+      },
+      { rootMargin: '200px 0px', threshold: 0.01 }
+    );
+
+    observer.observe(video);
+    document.addEventListener('visibilitychange', updatePlayback);
+    reducedMotionQuery.addEventListener('change', updatePlayback);
+
+    return () => {
+      observer.disconnect();
+      video.pause();
+      document.removeEventListener('visibilitychange', updatePlayback);
+      reducedMotionQuery.removeEventListener('change', updatePlayback);
+    };
+  }, []);
+
+  if (!manifestoConfig.text && !manifestoConfig.videoPath) {
+    return null;
+  }
 
   return (
     <section
@@ -111,11 +152,11 @@ export default function Manifesto() {
               }}
             >
               <video
-                autoPlay
+                ref={videoElementRef}
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="none"
                 style={{
                   width: '100%',
                   height: '100%',

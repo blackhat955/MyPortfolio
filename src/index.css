@@ -10,6 +10,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fragment Mono';
+  src: url('../node_modules/geist/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -64,6 +80,17 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-section {
     height: auto !important;
@@ -82,11 +109,35 @@
     background: #000 !important;
   }
 
+  .mobile-menu-toggle {
+    display: inline-flex !important;
+  }
+
   .hero-nav-links {
-    justify-content: flex-start !important;
-    flex-wrap: wrap !important;
-    gap: 12px 18px !important;
+    display: none !important;
+  }
+
+  .hero-nav-links.is-open {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    width: 100% !important;
+    padding-top: 4px !important;
     white-space: normal !important;
+  }
+
+  .hero-nav-links.is-open .hero-nav-item {
+    width: 100% !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.18) !important;
+  }
+
+  .hero-nav-links.is-open .hero-nav-item a {
+    width: 100% !important;
+    padding: 13px 0 !important;
+  }
+
+  .hero-nav-separator {
+    display: none !important;
   }
 
   .hero-nav-item {

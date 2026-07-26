@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import AsciiCanvas from '../components/AsciiCanvas';
 import { heroConfig, navigationConfig } from '../config';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const notes = heroConfig.supportingNotes.slice(0, 3);
   const hasHeroContent =
     navigationConfig.brandName ||
@@ -83,8 +84,36 @@ export default function Hero() {
         >
           {navigationConfig.brandName}
         </span>
+        <button
+          type="button"
+          className="mobile-menu-toggle"
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-controls="primary-navigation"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+          style={{
+            display: 'none',
+            position: 'absolute',
+            top: '14px',
+            right: '20px',
+            width: '44px',
+            height: '44px',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '1px solid rgba(255,255,255,0.48)',
+            background: '#000',
+            color: '#fff',
+            fontFamily: "'IBM Plex Mono', monospace",
+            fontSize: '24px',
+            lineHeight: 1,
+            cursor: 'pointer',
+          }}
+        >
+          <span aria-hidden="true">{mobileMenuOpen ? '×' : '☰'}</span>
+        </button>
         <div
-          className="hero-nav-links"
+          id="primary-navigation"
+          className={`hero-nav-links${mobileMenuOpen ? ' is-open' : ''}`}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -106,6 +135,7 @@ export default function Hero() {
             >
               <a
                 href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
                 style={{
                   fontSize: 'clamp(10px, 0.82vw, 13px)',
                   fontWeight: 400,
@@ -127,7 +157,12 @@ export default function Hero() {
                 {item.label}
               </a>
               {index < navigationConfig.links.length - 1 && (
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px' }}>·</span>
+                <span
+                  className="hero-nav-separator"
+                  style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px' }}
+                >
+                  ·
+                </span>
               )}
             </div>
           ))}
