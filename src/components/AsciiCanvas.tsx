@@ -52,28 +52,41 @@ export default function AsciiCanvas() {
     let rows = 0;
     let time = 0;
     let rafId = 0;
-    const mouse = { x: -1000, y: -1000 };
+    let lastFrameTime = 0;
+    let frameInterval = 1000 / 30;
+    let isInView = true;
+    let isPageVisible = !document.hidden;
+    let isMounted = true;
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let prefersReducedMotion = reducedMotionQuery.matches;
+    const mouse = { x: 0, y: 0, active: false };
 
     const resize = () => {
       width = canvas.parentElement!.offsetWidth;
       height = canvas.parentElement!.offsetHeight;
 
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
 
-      cols = width < 768 ? 90 : 128;
+      cols = width < 768 ? 58 : 88;
+      frameInterval = 1000 / (width < 768 ? 24 : 30);
       const cellW = width / cols;
       const cellH = cellW * 1.18;
       rows = Math.ceil(height / cellH);
     };
 
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+
+    const onPointerLeave = () => {
+      mouse.active = false;
     };
 
     const draw = () => {
@@ -88,19 +101,17 @@ export default function AsciiCanvas() {
       const moonX = width * 0.5;
       const moonY = height * 0.5;
       const moonRadius = Math.min(width, height) * 0.24;
+      const angle = time * 0.32;
+      const angleCos = Math.cos(angle);
+      const angleSin = Math.sin(angle);
 
       ctx.font = `${cellH * 0.84}px "Fragment Mono", monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      // Light direction for the moon
-      let lx = 1.0;
-      let ly = 0.15;
-      let lz = -0.6;
-      const lLen = Math.hypot(lx, ly, lz);
-      lx /= lLen;
-      ly /= lLen;
-      lz /= lLen;
+      const lx = 0.8507;
+      const ly = 0.1276;
+      const lz = -0.5104;
 
       for (let r = 0; r < rows; r++) {
         const rowY = r * cellH + cellH / 2;
@@ -116,10 +127,11 @@ export default function AsciiCanvas() {
           const dyMoon = y - moonY;
           const distMoon = Math.hypot(dxMoon, dyMoon);
           const normMoon = distMoon / moonRadius;
-          const angleMoon = Math.atan2(dyMoon, dxMoon);
-
-          const mouseDistance = Math.hypot(x - mouse.x, y - mouse.y);
-          const mouseField = Math.exp(-mouseDistance * 0.0038);
+          const angleSinMoon = distMoon > 0 ? dyMoon / distMoon : 0;
+          const angleCosMoon = distMoon > 0 ? dxMoon / distMoon : 1;
+          const mouseField = mouse.active
+            ? Math.exp(-Math.hypot(x - mouse.x, y - mouse.y) * 0.0038)
+            : 0;
 
           let char = '';
           let opacity = 0;
@@ -133,10 +145,9 @@ export default function AsciiCanvas() {
             const z = Math.sqrt(Math.max(0, 1.0 - localR2));
 
             // Rotate moon surface over time to create a visible self-rotation
-            const angle = time * 0.32;
-            const px = localX * Math.cos(angle) - z * Math.sin(angle);
+            const px = localX * angleCos - z * angleSin;
             const py = localY;
-            const pz = localX * Math.sin(angle) + z * Math.cos(angle);
+            const pz = localX * angleSin + z * angleCos;
 
             let diffuse = px * lx + py * ly + pz * lz;
             diffuse = Math.max(0, diffuse);
@@ -168,8 +179,8 @@ export default function AsciiCanvas() {
 
             // Slight orbital drag so the moon is not completely static in the field
             const edgeBend = Math.exp(-Math.abs(normMoon - 1.0) * 8) * 4;
-            drawX += -Math.sin(angleMoon) * edgeBend;
-            drawY += Math.cos(angleMoon) * edgeBend * 0.4;
+            drawX += -angleSinMoon * edgeBend;
+            drawY += angleCosMoon * edgeBend * 0.4;
 
             drawX += Math.sin(time * 3.6 + r * 0.32 + c * 0.11) * mouseField * 16;
             drawY += Math.cos(time * 2.8 + c * 0.24) * mouseField * 5;
@@ -211,8 +222,8 @@ export default function AsciiCanvas() {
 
               // Bend flow around the moon
               const swirl = orbitBand * 10;
-              drawX += -Math.sin(angleMoon) * swirl;
-              drawY += Math.cos(angleMoon) * swirl * 0.6;
+              drawX += -angleSinMoon * swirl;
+              drawY += angleCosMoon * swirl * 0.6;
 
               drawX += Math.sin(time * 4.8 + r * 0.35 + c * 0.1) * mouseField * 18;
               drawY += Math.cos(time * 3.2 + c * 0.25) * mouseField * 6;
@@ -226,22 +237,88 @@ export default function AsciiCanvas() {
           ctx.fillText(char, drawX, drawY);
         }
       }
-
-      rafId = requestAnimationFrame(draw);
     };
 
+    const stopAnimation = () => {
+      if (!rafId) return;
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+    };
+
+    const tick = (timestamp: number) => {
+      rafId = 0;
+      if (!isMounted || !isInView || !isPageVisible || prefersReducedMotion) return;
+
+      if (timestamp - lastFrameTime >= frameInterval) {
+        draw();
+        lastFrameTime = timestamp;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const startAnimation = () => {
+      if (rafId || !isInView || !isPageVisible || prefersReducedMotion) return;
+      lastFrameTime = 0;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const onVisibilityChange = () => {
+      isPageVisible = !document.hidden;
+      if (isPageVisible) {
+        startAnimation();
+      } else {
+        stopAnimation();
+      }
+    };
+
+    const onMotionPreferenceChange = (event: MediaQueryListEvent) => {
+      prefersReducedMotion = event.matches;
+      if (prefersReducedMotion) {
+        stopAnimation();
+        draw();
+      } else {
+        startAnimation();
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView = entry.isIntersecting;
+        if (isInView) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.01 }
+    );
+
+    resize();
+    draw();
+    startAnimation();
+    observer.observe(canvas);
+
     document.fonts.ready.then(() => {
-      resize();
+      if (!isMounted) return;
       draw();
     });
 
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    canvas.addEventListener('pointermove', onPointerMove, { passive: true });
+    canvas.addEventListener('pointerleave', onPointerLeave);
+    reducedMotionQuery.addEventListener('change', onMotionPreferenceChange);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      isMounted = false;
+      stopAnimation();
+      observer.disconnect();
       window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      canvas.removeEventListener('pointermove', onPointerMove);
+      canvas.removeEventListener('pointerleave', onPointerLeave);
+      reducedMotionQuery.removeEventListener('change', onMotionPreferenceChange);
     };
   }, []);
 

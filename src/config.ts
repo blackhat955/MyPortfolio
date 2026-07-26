@@ -129,8 +129,8 @@ export interface FooterConfig {
 
 export const siteConfig: SiteConfig = {
   language: "en",
-  siteTitle: "Durgesh Tiwari | Full Stack Developer",
-  siteDescription: "Portfolio of Durgesh Tiwari — Full Stack Developer building scalable web platforms, backend services, cloud deployments, and production-grade user experiences.",
+  siteTitle: "Durgesh Tiwari | Full-Stack Engineer",
+  siteDescription: "Portfolio of Durgesh Tiwari — a full-stack engineer building production systems across React, TypeScript, Spring Boot, Flask, Node.js, AWS, and applied AI.",
 }
 
 export const navigationConfig: NavigationConfig = {
@@ -149,29 +149,29 @@ export const heroConfig: HeroConfig = {
   eyebrow: "OPERATOR: DURGESH TIWARI / STATUS: ACTIVE",
   titleLines: [
     "FULL STACK",
-    "DEVELOPER",
+    "ENGINEER",
   ],
-  leadText: "Building scalable web applications, API platforms, and cloud-ready services. 2+ years shipping production code across fintech, edtech, and enterprise platforms.",
+  leadText: "Building production systems end to end — from React and TypeScript interfaces to Spring Boot, Flask, and Node.js services on AWS, including the AI layer.",
   supportingNotes: [
-    "React / TypeScript / Spring Boot / Node.js",
-    "AWS / Docker / Kubernetes / Redis / RabbitMQ",
-    "Based in Bloomington, IN — Open to remote opportunities",
+    "React / TypeScript / Spring Boot / Flask / Node.js",
+    "AWS / Redis / Kafka / ONNX Runtime / Docker",
+    "ICPC Regionalist — Based in Bloomington, IN",
   ],
 }
 
 export const manifestoConfig: ManifestoConfig = {
   videoPath: "/videos/vid-1.mp4",
-  text: "Full stack developer with 2+ years of production experience across frontend systems, backend APIs, cloud infrastructure, and platform integrations. I've architected microservices handling 40K+ daily active users, reduced system latency by 51%, and cut infrastructure costs by 30% through Redis caching and RabbitMQ optimization. My work spans React and Angular frontends, Spring Boot backends, AWS and Azure cloud deployments, and Elasticsearch-powered search systems. I believe in writing clean, tested code — achieving 80% coverage with JUnit and Mockito — and deploying through automated CI/CD pipelines.",
+  text: "Full-stack engineer building production systems end to end, from React and TypeScript frontends to Spring Boot, Flask, and Node.js backends on AWS, including the AI layer. I cut page load time by 35% with a GraphQL gateway, infrastructure cost by 30% with Redis caching, and delivered 300ms on-device LLM inference with INT8-quantized ONNX Runtime. ICPC Regionalist.",
 }
 
 export const identityConfig: IdentityConfig = {
   sectionLabel: "// PROFILE — IDENTITY PACKET",
-  title: "Production-minded full stack developer.",
-  summary: "I build user-facing applications, backend services, and cloud deployment flows with a focus on measurable reliability, speed, and maintainable code. My strongest work sits at the intersection of React interfaces, Spring Boot services, distributed caching, search, and automated delivery.",
+  title: "Full-stack engineer. Systems builder.",
+  summary: "I build and ship complete production systems: responsive React and TypeScript experiences, Spring Boot, Flask, and Node.js services, AWS infrastructure, and applied AI. I focus on measurable outcomes — faster pages, lower infrastructure cost, reliable distributed workflows, and efficient on-device inference.",
   details: [
     { label: "Location", value: "Bloomington, IN" },
     { label: "Availability", value: "Remote / Hybrid roles" },
-    { label: "Focus", value: "Full-stack systems, APIs, cloud" },
+    { label: "Focus", value: "Full-stack systems, cloud, AI" },
     { label: "Contact", value: "durgeshse98@gmail.com" },
   ],
 }
@@ -183,9 +183,9 @@ export const metricsConfig: MetricsConfig = {
     { value: "40K+", label: "Daily Active Users", detail: "Scaled course/search traffic across a production platform." },
     { value: "51%", label: "Latency Reduction", detail: "Improved system response time through backend optimization." },
     { value: "35%", label: "Faster Page Loads", detail: "Reduced load time with service architecture and gateway improvements." },
-    { value: "30%", label: "Infra Cost Cut", detail: "Reduced redundant calls with Redis caching and RabbitMQ refresh flows." },
+    { value: "30%", label: "Infra Cost Cut", detail: "Reduced redundant calls with Redis caching and Kafka refresh events." },
     { value: "80%", label: "Test Coverage", detail: "Built JUnit and Mockito coverage with SonarQube checks." },
-    { value: "200+", label: "Students Mentored", detail: "Supported mobile app development, debugging, and PR reviews." },
+    { value: "300ms", label: "On-Device Inference", detail: "Tuned an INT8-quantized ONNX Runtime BERT pipeline for low-resource devices." },
   ],
 }
 
@@ -218,54 +218,56 @@ export const facilitiesConfig: FacilitiesConfig = {
   detailReturnText: "Return to main terminal",
   items: [
     {
-      slug: "kahana",
-      name: "FULL STACK DEVELOPER",
-      code: "KAH",
-      address: "KAHANA — USA (REMOTE)",
-      status: "ACTIVE DEPLOYMENT // JUN 2025 – PRESENT",
+      slug: "techmentee",
+      name: "SOFTWARE ENGINEER",
+      code: "TMI",
+      address: "TECHMENTEE, INC. — USA",
+      status: "ACTIVE DEPLOYMENT // JUN 2026 – PRESENT",
       highlights: [
-        "98% feature success rate across customizable React and Spring Boot modules.",
-        "35% faster page loads through REST microservices behind a GraphQL Gateway.",
-        "30% lower infrastructure cost with Redis caching and RabbitMQ refresh flows.",
+        "Built a configuration-driven Python pipeline for an E-Pharma platform.",
+        "Automated ingestion, validation, feature engineering, and model training.",
+        "Designed reusable model workflows and artifacts for Node.js integration.",
       ],
       email: "durgeshse98@gmail.com",
-      phone: "REACT / SPRING BOOT / REDIS / RABBITMQ / GRAPHQL / TAILWIND",
+      phone: "PYTHON / SCIKIT-LEARN / PANDAS / JOBLIB / NODE.JS",
+      ctaText: "VIEW SYSTEM DETAILS →",
+      ctaHref: "#",
+      image: "/images/exp-02-techmentee.svg",
+      utcOffset: -4,
+      article: {
+        title: "TECHMENTEE — E-PHARMA ML PIPELINE",
+        paragraphs: [
+          "Built a configuration-driven Python pipeline for an E-Pharma platform that automates ingestion, validation, feature engineering, and model training, replacing ad-hoc analysis scripts with reusable, testable components.",
+          "Designed feature engineering and training workflows with lag and rolling features, multi-model evaluation, and joblib artifact persistence, structured for integration with the Node.js backend.",
+        ],
+      },
+    },
+    {
+      slug: "kahana",
+      name: "SOFTWARE ENGINEER",
+      code: "KAH",
+      address: "KAHANA — USA (REMOTE)",
+      status: "COMPLETED // JUN 2025 – JUN 2026",
+      highlights: [
+        "Reached 98% command success for voice-driven browser actions.",
+        "Cut page load time by 35% with a GraphQL gateway over Flask services.",
+        "Delivered 300ms on-device inference with INT8-quantized ONNX Runtime.",
+      ],
+      email: "durgeshse98@gmail.com",
+      phone: "PYTHON / FLASK / REACT / TYPESCRIPT / GRAPHQL / REDIS / KAFKA / ONNX",
       ctaText: "VIEW SYSTEM DETAILS →",
       ctaHref: "#",
       image: "/images/exp-01-kahana.svg",
       utcOffset: -4,
       article: {
-        title: "KAHANA — FULL STACK DEVELOPMENT",
+        title: "KAHANA — AI BROWSER ENGINEERING",
         paragraphs: [
-          "Designed and developed customizable modules and a voice-based search system using React with Tailwind CSS and Spring Boot, improving cross-device user experience and achieving a 98% feature success rate across sessions.",
-          "Engineered RESTful Spring Boot microservices for authentication, recommendation, and frequent search, orchestrated via a GraphQL Gateway. This architecture reduced page load time by 35% and enhanced personalized recommendations.",
-          "Optimized the search flow using Redis caching and RabbitMQ, serving cached results instantly across services and asynchronously refreshing data for analytics and recommendations. This reduced redundant calls and cut infrastructure costs by 30%.",
-          "Accelerated project delivery by resolving business logic gaps and collaborating with cross-functional teams in an Agile environment.",
-        ],
-      },
-    },
-    {
-      slug: "indiana-university",
-      name: "HEAD ASSOC. INSTRUCTOR",
-      code: "IUB",
-      address: "INDIANA UNIVERSITY — BLOOMINGTON, IN",
-      status: "COMPLETED // AUG 2024 – MAY 2025",
-      highlights: [
-        "Managed 6+ Agile teams through stand-ups, sprint reviews, and delivery planning.",
-        "Mentored 200+ students across Node.js, Firebase, React Native, and Kotlin.",
-        "Reviewed pull requests and debugged production-style mobile app workflows.",
-      ],
-      email: "durgeshse98@gmail.com",
-      phone: "NODE.JS / REACT NATIVE / KOTLIN / FIREBASE / AGILE / JIRA",
-      ctaText: "VIEW SYSTEM DETAILS →",
-      ctaHref: "#",
-      image: "/images/exp-02-iu.svg",
-      utcOffset: -4,
-      article: {
-        title: "INDIANA UNIVERSITY — INSTRUCTION & LEADERSHIP",
-        paragraphs: [
-          "Managed 6+ teams in full-stack development with Agile and Jira; led stand-ups and sprint reviews; facilitated Miro brainstorming sessions, improving on-time delivery and team productivity.",
-          "Mentored 200+ students in Mobile App Development with Node.js, Firebase, React Native, and Kotlin; provided debugging support and conducted PR reviews to ensure code quality and reduce development time.",
+          "Achieved a 98% command success rate for voice-driven browser actions, including opening and grouping tabs and searching history, using a Python Flask backend and a React, TypeScript, and Tailwind CSS frontend.",
+          "Reduced page load time by 35% by consolidating authentication, recommendation, and search-suggestion calls behind a single GraphQL gateway over Flask microservices, with Kafka events keeping recommendations fresh.",
+          "Cut infrastructure costs by 30% with a Redis cache-aside layer that repopulates on misses and publishes Kafka events to refresh recommendations, supported by RabbitMQ and Celery asynchronous jobs.",
+          "Improved frontend performance by restructuring React state from arrays to hash maps for constant-time lookups, adding memoization to cut re-renders, and using code splitting and lazy loading to shrink the initial load.",
+          "Built a two-tier intent engine that races an on-device MiniLM matcher against a Gemini path in parallel threads, takes the higher-confidence result, and cancels the slower path through an atomic flag to save compute.",
+          "Optimized on-device inference to a 300ms round trip by tuning an ONNX Runtime BERT pipeline for low-resource devices with multithreading and INT8 quantization, matching intents to a function registry of typed browser handlers.",
         ],
       },
     },
@@ -281,7 +283,7 @@ export const facilitiesConfig: FacilitiesConfig = {
         "Reached 80% coverage with JUnit, Mockito, and SonarQube quality gates.",
       ],
       email: "durgeshse98@gmail.com",
-      phone: "SPRING BOOT / AWS ECS / ELASTICSEARCH / JWT / DOCKER / JENKINS",
+      phone: "SPRING BOOT / JPA / HIBERNATE / ELASTICSEARCH / JWT / OAUTH2 / JUNIT",
       ctaText: "VIEW SYSTEM DETAILS →",
       ctaHref: "#",
       image: "/images/exp-03-programmers-army.svg",
@@ -289,11 +291,10 @@ export const facilitiesConfig: FacilitiesConfig = {
       article: {
         title: "PROGRAMMERS ARMY — BACKEND ENGINEERING",
         paragraphs: [
-          "Built Spring Boot services using Spring Data JPA and Hibernate with REST APIs for payments, orders, and assessments. Improved testability with dependency injection and slice tests, increased release cadence, and lowered p95 latency from 450ms to 220ms under peak load.",
-          "Implemented authentication service using Spring Security with JWT, OAuth2, and role-based access control, eliminating unauthorized access while improving login throughput and reducing authentication-related support tickets.",
-          "Integrated Elasticsearch for full-text content search across courses, videos, and PDFs with per-field boosting and fuzzy matching, isolating search from the primary database and keeping response times stable during sale-driven traffic spikes across a 40K+ daily active user base.",
-          "Deployed Spring Boot microservices to AWS ECS Fargate with per-service task scaling policies, enabling payments and order processing to scale independently during sale traffic spikes without managing underlying infrastructure.",
-          "Enhanced code quality and reduced production bugs by implementing JUnit and Mockito-based automated testing and integrating SonarQube for static analysis, achieving 80% code coverage.",
+          "Reduced p95 latency from 450ms to 220ms under peak load by building Spring Boot REST services with Spring Data JPA and Hibernate for payments, orders, and assessments, while improving testability through dependency injection and slice tests.",
+          "Strengthened application security and reduced authentication-related support tickets by implementing an authentication service with Spring Security, JWT, OAuth2, and role-based access control.",
+          "Maintained consistent search performance during traffic spikes across a 40K+ daily active user base by integrating Elasticsearch for full-text search across courses, videos, and PDFs with per-field boosting and fuzzy matching.",
+          "Achieved 80% code coverage and improved release quality by implementing automated tests with JUnit and Mockito and integrating SonarQube for static analysis.",
         ],
       },
     },

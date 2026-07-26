@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 function AnalogClock({ utcOffset = 0 }: { utcOffset?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -74,11 +73,11 @@ function AnalogClock({ utcOffset = 0 }: { utcOffset?: number }) {
       ctx.stroke();
 
       ctx.restore();
-      rafRef.current = requestAnimationFrame(draw);
     };
 
     draw();
-    return () => cancelAnimationFrame(rafRef.current);
+    const intervalId = window.setInterval(draw, 1000);
+    return () => window.clearInterval(intervalId);
   }, [utcOffset]);
 
   return <canvas ref={canvasRef} style={{ width: '48px', height: '48px', marginBottom: '16px' }} />;

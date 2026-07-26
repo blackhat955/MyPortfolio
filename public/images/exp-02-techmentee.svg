@@ -1,0 +1,37 @@
+<svg width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="260" fill="#ffffff"/>
+  <rect x="26" y="103" width="72" height="34" rx="2" fill="#fafafa" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="62" y="117" text-anchor="middle" font-family="monospace" font-size="7" fill="#666666">E-PHARMA</text>
+  <text x="62" y="128" text-anchor="middle" font-family="monospace" font-size="7" fill="#999999">DATA</text>
+
+  <line x1="98" y1="120" x2="126" y2="120" stroke="#bbbbbb" stroke-width="0.7"/>
+  <path d="M122 116 L126 120 L122 124" fill="none" stroke="#bbbbbb" stroke-width="0.7"/>
+
+  <rect x="126" y="39" width="148" height="162" rx="2" fill="#f7f7f7" stroke="#999999" stroke-width="0.5"/>
+  <text x="200" y="56" text-anchor="middle" font-family="monospace" font-size="8" fill="#333333" letter-spacing="0.05em">CONFIG-DRIVEN PIPELINE</text>
+
+  <rect x="144" y="69" width="112" height="20" rx="2" fill="#ffffff" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="200" y="82" text-anchor="middle" font-family="monospace" font-size="7" fill="#666666">INGEST + VALIDATE</text>
+  <line x1="200" y1="89" x2="200" y2="101" stroke="#cccccc" stroke-width="0.5"/>
+
+  <rect x="144" y="101" width="112" height="20" rx="2" fill="#ffffff" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="200" y="114" text-anchor="middle" font-family="monospace" font-size="7" fill="#666666">LAG + ROLLING FEATURES</text>
+  <line x1="200" y1="121" x2="200" y2="133" stroke="#cccccc" stroke-width="0.5"/>
+
+  <rect x="144" y="133" width="112" height="20" rx="2" fill="#ffffff" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="200" y="146" text-anchor="middle" font-family="monospace" font-size="7" fill="#666666">MULTI-MODEL EVAL</text>
+  <line x1="200" y1="153" x2="200" y2="165" stroke="#cccccc" stroke-width="0.5"/>
+
+  <rect x="144" y="165" width="112" height="20" rx="2" fill="#ffffff" stroke="#dddddd" stroke-width="0.5"/>
+  <text x="200" y="178" text-anchor="middle" font-family="monospace" font-size="7" fill="#888888">JOBLIB ARTIFACTS</text>
+
+  <line x1="274" y1="120" x2="302" y2="120" stroke="#bbbbbb" stroke-width="0.7"/>
+  <path d="M298 116 L302 120 L298 124" fill="none" stroke="#bbbbbb" stroke-width="0.7"/>
+
+  <rect x="302" y="103" width="72" height="34" rx="2" fill="#fafafa" stroke="#cccccc" stroke-width="0.5"/>
+  <text x="338" y="117" text-anchor="middle" font-family="monospace" font-size="7" fill="#666666">NODE.JS</text>
+  <text x="338" y="128" text-anchor="middle" font-family="monospace" font-size="7" fill="#999999">BACKEND</text>
+
+  <text x="200" y="229" text-anchor="middle" font-family="monospace" font-size="8" fill="#999999">REUSABLE · TESTABLE · PERSISTENT</text>
+  <text x="200" y="248" text-anchor="middle" font-family="monospace" font-size="11" fill="#bbbbbb" letter-spacing="0.08em">TECHMENTEE · ML SYSTEMS</text>
+</svg>
