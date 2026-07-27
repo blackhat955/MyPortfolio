@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { metricsConfig } from '../config';
+import CountUpValue from '../components/CountUpValue';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,8 +11,14 @@ export default function Impact() {
 
   useEffect(() => {
     if (!sectionRef.current) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set('.impact-card', { opacity: 1, y: 0, scale: 1 });
+        return;
+      }
+
       gsap.fromTo(
         '.impact-card',
         { opacity: 0, y: 42, scale: 0.96 },
@@ -37,7 +44,7 @@ export default function Impact() {
     <section
       ref={sectionRef}
       className="impact-section"
-      id="impact"
+      id="impact-details"
       style={{
         background: '#000',
         color: '#fff',
@@ -119,7 +126,7 @@ export default function Impact() {
                   lineHeight: 0.9,
                 }}
               >
-                {item.value}
+                <CountUpValue metric={item} />
               </div>
               <div>
                 <h3

@@ -38,6 +38,10 @@ export interface IdentityConfig {
 
 export interface MetricItem {
   value: string
+  countTo: number
+  countFrom?: number
+  prefix?: string
+  suffix?: string
   label: string
   detail: string
 }
@@ -53,7 +57,6 @@ export interface EducationItem {
   location: string
   degree: string
   period: string
-  gpa: string
   courses: string[]
 }
 
@@ -108,6 +111,11 @@ export interface ArchiveItem {
   title: string
   timeframe: string
   summary: string
+  problem?: string
+  ownership?: string
+  architecture?: string
+  decision?: string
+  result?: string
   stack: string[]
   metrics: string[]
   details: string[]
@@ -129,8 +137,8 @@ export interface FooterConfig {
 
 export const siteConfig: SiteConfig = {
   language: "en",
-  siteTitle: "Durgesh Tiwari | Full-Stack Engineer",
-  siteDescription: "Portfolio of Durgesh Tiwari — a full-stack engineer building production systems across React, TypeScript, Spring Boot, Flask, Node.js, AWS, and applied AI.",
+  siteTitle: "Durgesh Tiwari — Full Stack Engineer",
+  siteDescription: "Full stack engineer building production systems end to end, including the AI layer. React, TypeScript, Spring Boot, Flask, Node, AWS.",
 }
 
 export const navigationConfig: NavigationConfig = {
@@ -180,12 +188,13 @@ export const metricsConfig: MetricsConfig = {
   sectionLabel: "// IMPACT — OUTPUT SIGNALS",
   title: "Measured production outcomes.",
   items: [
-    { value: "40K+", label: "Daily Active Users", detail: "Scaled course/search traffic across a production platform." },
-    { value: "51%", label: "Latency Reduction", detail: "Improved system response time through backend optimization." },
-    { value: "35%", label: "Faster Page Loads", detail: "Reduced load time with service architecture and gateway improvements." },
-    { value: "30%", label: "Infra Cost Cut", detail: "Reduced redundant calls with Redis caching and Kafka refresh events." },
-    { value: "80%", label: "Test Coverage", detail: "Built JUnit and Mockito coverage with SonarQube checks." },
-    { value: "300ms", label: "On-Device Inference", detail: "Tuned an INT8-quantized ONNX Runtime BERT pipeline for low-resource devices." },
+    { value: "98%", countTo: 98, suffix: "%", label: "Command Success", detail: "Voice-driven browser actions across a Flask and React system." },
+    { value: "35%", countTo: 35, suffix: "%", label: "Faster Page Loads", detail: "Consolidated three service calls behind one GraphQL gateway." },
+    { value: "30%", countTo: 30, suffix: "%", label: "Infrastructure Cost Cut", detail: "Added Redis cache-aside behavior with Kafka refresh events." },
+    { value: "300ms", countTo: 300, suffix: "ms", label: "On-Device Inference", detail: "Tuned an INT8-quantized ONNX Runtime BERT pipeline." },
+    { value: "450→220ms", countFrom: 450, countTo: 220, prefix: "450→", suffix: "ms", label: "p95 Latency", detail: "Reduced peak-load latency across Spring Boot REST services." },
+    { value: "40K+", countTo: 40, suffix: "K+", label: "Daily Active Users", detail: "Maintained search performance during production traffic spikes." },
+    { value: "80%", countTo: 80, suffix: "%", label: "Test Coverage", detail: "JUnit and Mockito coverage with SonarQube static analysis." },
   ],
 }
 
@@ -197,7 +206,6 @@ export const educationConfig: EducationConfig = {
       location: "Bloomington, IN, USA",
       degree: "Master of Science in Data Science",
       period: "AUG 2023 — MAY 2025",
-      gpa: "GPA 3.6 / 4.0",
       courses: ["Applied Algorithms", "Software Engineering", "Advanced Database Concepts", "Computer Vision"],
     },
     {
@@ -205,7 +213,6 @@ export const educationConfig: EducationConfig = {
       location: "Mumbai, India",
       degree: "Bachelor of Engineering in Information Technology",
       period: "AUG 2018 — MAY 2022",
-      gpa: "GPA 9.2 / 10.0",
       courses: ["Object Oriented Programming", "Computer Networks", "Operating Systems", "Cryptography Network Security"],
     },
   ],
@@ -317,14 +324,42 @@ export const archivesConfig: ArchivesConfig = {
   closeText: "CLOSE VAULT",
   items: [
     {
+      src: "/images/08-docquery.svg",
+      label: "DOCQUERY — RAG / FASTAPI / CHROMADB / REACT AGENT",
+      category: "AI / RAG",
+      title: "DocQuery",
+      timeframe: "JAN 2025 — JUL 2025",
+      summary: "A citation-grounded document intelligence platform that ingests PDFs, retrieves source-aware context, and routes question answering, summarization, and report generation through a typed ReAct agent.",
+      problem: "PDF question answering often produces references that are not traceable to the uploaded source.",
+      ownership: "Built the ingestion, retrieval, agent, API, and Gradio interface end to end.",
+      architecture: "pypdf → overlapping chunks → all-MiniLM-L6-v2 → ChromaDB → ReAct tools → Groq or Ollama.",
+      decision: "Stored filename, page, and chunk metadata with each vector and generated citations from that metadata.",
+      result: "Eliminated citation hallucination and shipped the platform live on Hugging Face Spaces.",
+      stack: ["Python", "FastAPI", "Gradio", "ChromaDB", "Sentence-Transformers", "Groq", "Ollama", "Docker"],
+      metrics: ["Exact filename, page, and chunk citations", "Pluggable cloud and local LLM interface", "Live deployment on Hugging Face Spaces"],
+      details: [
+        "Built a RAG pipeline that extracts PDF text with pypdf, chunks with overlap, embeds locally using all-MiniLM-L6-v2, and stores vectors in persistent ChromaDB with source, page, and chunk metadata.",
+        "Eliminated citation hallucination by grounding every answer in stored vector metadata instead of relying on model-generated references.",
+        "Built a ReAct agent with typed tools for question answering, summarization, and structured reports, supporting Groq Llama 3.3 70B and local Ollama llama3.2:3b.",
+        "Shipped a Gradio PDF upload and Q&A interface plus FastAPI endpoints for ingestion, querying, health checks, and agent routing.",
+      ],
+      demoUrl: "https://huggingface.co/spaces/Durgesh98/document-rag-platform",
+      repoUrl: "https://github.com/blackhat955/DocumenRAG",
+    },
+    {
       src: "/images/01-cpp-search-engine.svg",
       label: "C++ SEARCH ENGINE — TRIE / LEVENSHTEIN / NODE ADDON",
       category: "Systems",
-      title: "High Performance C++ Search Engine",
-      timeframe: "SYSTEMS PROJECT",
+      title: "High-Performance C++ Search Engine",
+      timeframe: "2025",
       summary: "A developer-focused fuzzy text search engine built with a C++ Trie, inverted index, and recursive Levenshtein search, exposed to the web through a native Node.js addon.",
+      problem: "Prefix, exact, and typo-tolerant text lookup needed native speed without excessive Trie-node memory.",
+      ownership: "Implemented the C++ search core, memory optimization, N-API binding, and runtime monitoring.",
+      architecture: "C++ Trie + inverted index + recursive Levenshtein traversal → N-API addon → Express service.",
+      decision: "Replaced unordered_map child storage with a contiguous vector and validated it under AddressSanitizer.",
+      result: "Reduced Trie node memory by 42% while supporting fuzzy matching within edit distance 2.",
       stack: ["C++", "Trie", "Levenshtein", "Node.js", "N-API", "Express"],
-      metrics: ["Fuzzy matching within edit distance 2", "Native Node addon via node-addon-api", "Live RSS, latency, and throughput monitoring"],
+      metrics: ["42% lower Trie node memory", "Fuzzy matching within edit distance 2", "Real-time latency and throughput monitoring"],
       details: [
         "Implemented a Trie for fast prefix traversal and an inverted index to map matched vocabulary terms back to source line numbers.",
         "Optimized Trie node storage from hash maps to vectors to reduce memory overhead and validated improvements with AddressSanitizer.",
@@ -332,6 +367,27 @@ export const archivesConfig: ArchivesConfig = {
       ],
       demoUrl: "https://high-performance-texts-search-engine.onrender.com/",
       repoUrl: "https://github.com/blackhat955/high_performance_texts_search_engine",
+    },
+    {
+      src: "/images/09-pocketsplit.svg",
+      label: "POCKETSPLIT — REACT NATIVE / SPRING BOOT / POSTGRESQL",
+      category: "Mobile / Fintech",
+      title: "PocketSplit",
+      timeframe: "AUG 2024 — JAN 2025",
+      summary: "A cross-platform expense-sharing application for splitting bills, tracking friend and group balances, and securely synchronizing sessions and contacts.",
+      problem: "Friends and groups needed one cross-platform flow for splitting bills and tracking balances.",
+      ownership: "Built the React Native client, Spring Boot APIs, PostgreSQL data layer, authentication, and container delivery.",
+      architecture: "React Native + Expo SecureStore → JWT-authenticated Spring Boot REST APIs → PostgreSQL + Flyway.",
+      decision: "Used Flyway for repeatable schema changes and Expo SecureStore for client session storage.",
+      result: "Containerized the system with Docker Compose and published backend images to GHCR through GitHub Actions.",
+      stack: ["React Native", "Expo", "Spring Boot", "PostgreSQL", "Flyway", "JWT", "Docker", "GitHub Actions"],
+      metrics: ["Cross-platform expense and balance tracking", "Secure sessions with Expo SecureStore", "Automated container publishing to GHCR"],
+      details: [
+        "Built a React Native and Expo client for splitting bills, tracking friend and group balances, and synchronizing contacts, with sessions stored through Expo SecureStore.",
+        "Built a Spring Boot and PostgreSQL backend with token-authenticated REST APIs, Flyway migrations, and JWT authentication.",
+        "Containerized the complete system with Docker Compose and published backend images to GitHub Container Registry through GitHub Actions.",
+      ],
+      repoUrl: "https://github.com/blackhat955/PocketSplit",
     },
     {
       src: "/images/02-medical-imaging.svg",

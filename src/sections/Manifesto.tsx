@@ -11,16 +11,24 @@ export default function Manifesto() {
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
   const stackGroups = [
-    ['Frontend', 'React', 'Angular', 'TypeScript', 'Tailwind'],
-    ['Backend', 'Spring Boot', 'Node.js', 'Django', 'GraphQL'],
-    ['Cloud', 'AWS', 'Azure', 'Docker', 'Kubernetes'],
-    ['Data', 'PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch'],
+    ['Languages', 'Python', 'TypeScript', 'Java', 'C++'],
+    ['Frontend', 'React', 'Next.js', 'React Native', 'Tailwind CSS'],
+    ['Backend', 'Spring Boot', 'Flask', 'Node.js', 'GraphQL'],
+    ['Messaging', 'Kafka', 'RabbitMQ', 'Celery', 'Redis'],
+    ['Data / Cloud', 'PostgreSQL', 'Elasticsearch', 'AWS', 'Docker'],
+    ['AI / ML', 'RAG', 'ONNX Runtime', 'MiniLM', 'Gemini'],
   ];
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current || !videoRef.current) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set([videoRef.current, contentRef.current], { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.fromTo(
         videoRef.current,
         { opacity: 0, y: 50 },

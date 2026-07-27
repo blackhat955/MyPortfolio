@@ -10,8 +10,14 @@ export default function Identity() {
 
   useEffect(() => {
     if (!sectionRef.current) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set('.identity-cell', { opacity: 1, y: 0 });
+        return;
+      }
+
       gsap.fromTo(
         '.identity-cell',
         { opacity: 0, y: 28 },

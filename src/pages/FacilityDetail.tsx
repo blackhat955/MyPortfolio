@@ -13,6 +13,7 @@ export default function FacilityDetail() {
   if (!facility) {
     return (
       <div
+        className="route-view facility-not-found"
         style={{
           minHeight: '100vh',
           background: '#fff',
@@ -31,6 +32,7 @@ export default function FacilityDetail() {
 
   return (
     <div
+      className="route-view facility-detail"
       style={{
         minHeight: '100vh',
         background: '#fff',
@@ -41,6 +43,8 @@ export default function FacilityDetail() {
       }}
     >
       <nav
+        className="facility-detail-nav"
+        aria-label="Experience detail navigation"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -76,6 +80,7 @@ export default function FacilityDetail() {
       </nav>
 
       <div
+        className="facility-detail-layout"
         style={{
           flex: 1,
           display: 'flex',
@@ -83,6 +88,7 @@ export default function FacilityDetail() {
         }}
       >
         <div
+          className="facility-detail-copy"
           style={{
             flex: 1,
             padding: '64px 56px',
@@ -121,6 +127,7 @@ export default function FacilityDetail() {
         </div>
 
         <div
+          className="facility-detail-visual"
           style={{
             flex: 1,
             position: 'relative',

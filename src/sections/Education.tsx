@@ -30,7 +30,7 @@ export default function Education() {
               lineHeight: '18px',
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
-              color: 'rgba(0,0,0,0.52)',
+              color: 'rgba(0,0,0,0.62)',
               margin: '0 0 20px',
             }}
           >
@@ -120,7 +120,7 @@ export default function Education() {
                   margin: 0,
                 }}
               >
-                {item.degree} // {item.gpa}
+                {item.degree}
               </p>
               <p
                 style={{
